@@ -183,6 +183,7 @@ def concatenar_anexo_8(dir_carpeta_archivos: str, dir_carpeta_resultados: str):
                 ["id_servicio", "sentido", "tipo_dia", "hora", "id_tipo_bus"],
             ]
         )
+        df_temp = df_temp.loc[df_temp["sentido"].isin(["Ida", "Ret"]), :]
         dfs.append(df_temp)
     df = pd.concat(dfs)
 
