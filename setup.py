@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dtpm_util",
-    version="0.2.1",
+    version="0.3.1",
     author="Jose Manuel Vera",
     license='GNU General Public License version 3',
     description="Funcionalidades para cálculos y procesamientos en DTPM",
@@ -17,5 +17,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.9',
-    install_requires=['numpy', 'pandas', 'openpyxl', 'xlrd']
+    install_requires=['numpy', 'pandas', 'openpyxl', 'xlrd', 'shapely']
 )

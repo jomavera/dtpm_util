@@ -15,6 +15,7 @@ def calculo_demoras_conteo_buses_por_pr(
     nombre_archivos_pr: str,
     nombre_archivos_patentes: str,
     dir_listado_pr: str,
+    dir_dicc_servicios:str,
     dir_resultados: str = "resultados",
     tiempo_regulando = "00:10:00",
     frecuencia: str = "15min"
@@ -33,6 +34,9 @@ def calculo_demoras_conteo_buses_por_pr(
     param: dir_listado_pr: Ruta donde se encuentra el archivo con el listado de los PR
     type: dir_listado_pr: str
 
+    param: dir_dicc_servicios: Ruta donde se encuentra el archivo con el diccionario de servicios
+    type: dir_dicc_servicios: str
+
     param: dir_resultados: Ruta donde se guardan los resultados
     type: dir_resultados: str [Opcional]
 
@@ -49,7 +53,7 @@ def calculo_demoras_conteo_buses_por_pr(
     )
     listado_de_pr = pd.read_excel(dir_listado_pr, engine="openpyxl")
     df_servicios = pd.read_excel(
-        "datos/servicios.xlsx", dtype={"id_ss": str, "id_servicio": str}
+        dir_dicc_servicios, dtype={"id_ss": str, "id_servicio": str}
     )
     # -- # -- # 1. PROCESAMIENTYO Y CARGA DE DATOS # -- # -- #
 
