@@ -45,7 +45,7 @@ def extractor_pr(
     
     registros_gps_cp.loc[:,'Criterio_Interior_Poligono'] = condicion
 
-    registros_gps_cp.loc["Tiempogps"] = pd.to_datetime(
+    registros_gps_cp["Tiempogps"] = pd.to_datetime(
         registros_gps_cp["Tiempogps"], format="%Y%m%d%H%M%S"
     )
 
