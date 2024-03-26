@@ -36,27 +36,23 @@ def generar_tabla_temp_1(dir_carpeta_resultados: str):
     ids_ceros = df_all.loc[df_all['media_hora'].isna(),'id_servicio'].unique()
     if len(ids_ceros) >0:
         raise Exception(f"Los siguientes servicios {ids_ceros} no presentan información en alguno de los anexos 3 u 8!!!") 
+    
+    # Crear datetime a partir de hora (tiempo) a nivel de minuto 
     df_all["hora"] = pd.to_datetime(
         str(datetime.date(2010, 1, 1)) + " " + df_all["hora"].astype(str)
-    ).dt.floor("T")
+    ).dt.floor("min")
     df_all["media_hora"] = pd.to_datetime(
         str(datetime.date(2010, 1, 1)) + " " + df_all["media_hora"].astype(str)
-    ).dt.floor("T")
-
+    ).dt.floor("min")
     df_all["media_hora_t"] = df_all["media_hora"] + datetime.timedelta(minutes=29)
 
-    df_all["diff_hora"] = df_all["media_hora"] - df_all["hora"]
+    # Seleccionar solo filas que inicio de periodo es menor a la salida y el inicio del siguiente periodo es mayor a la salida
+    filas = (df_all["media_hora"] <= df_all["hora"]) & (df_all["media_hora_t"] >= df_all["hora"])
 
-    df_all["diff_hora"] = df_all["diff_hora"].dt.total_seconds() / 60
-
-    df_all["diff_hora_t"] = df_all["media_hora_t"] - df_all["hora"]
-    df_all["diff_hora_t"] = df_all["diff_hora_t"].dt.total_seconds() / 60
-
-    filas = (df_all["diff_hora"] <= 0) & (df_all["diff_hora_t"] >= 0)
     df_all = df_all.loc[filas, :]
 
+    # Calcular el tiempo que demora la expedicion
     df_all["tiempo_demora"] = 0.0
-
     df_all.loc[:, "tiempo_demora"] = (
         df_all["distancia_integrada"] / df_all["velocidad"]
     ) * 60
@@ -64,6 +60,7 @@ def generar_tabla_temp_1(dir_carpeta_resultados: str):
     df_all.loc[df_all["tiempo_demora"].apply(np.isinf), "tiempo_demora"] = 0
     df_all["tiempo_demora_td"] = pd.to_timedelta(df_all["tiempo_demora"], "m")
 
+    # Calcular hora de fin de expedicion
     df_all["hora_fin"] = 0
     df_all["hora_fin"] = df_all["hora"] + df_all["tiempo_demora_td"]
     df_all["hora"] = df_all["hora"].dt.time
