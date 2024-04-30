@@ -322,7 +322,8 @@ def procesamiento_registros_pr(
                     id_,
                     tiempo_regulando
                 )
-                lista_PR_dia.append(PR)
+                if not PR.empty:
+                    lista_PR_dia.append(PR)
 
             df_salida_PR = pd.concat(lista_PR_dia)
             print("           Archivo procesado, guardando...\n")
