@@ -18,3 +18,4 @@ Luego se puede importar el módulo `dtpm_util` en Python.
 - pandas >= 2.1.3
 - openpyxl
 - xlrd
+- shapely >= 2.0.1
