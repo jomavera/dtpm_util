@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+
+<html lang="esp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dtpm_util.cuadro_de_mando.operaciones &#8212; dtpm-util 0.3.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for dtpm_util.cuadro_de_mando.operaciones</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">dtpm_util.cuadro_de_mando.constantes</span> <span class="kn">import</span> <span class="n">MINUTOS</span>
+
+<div class="viewcode-block" id="generar_tabla_temp_1"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_tabla_temp_1">[docs]</a><span class="k">def</span> <span class="nf">generar_tabla_temp_1</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Genera la tabla &quot;temp_1&quot; en base a los archivos &quot;anexo_3_merge.xlsx&quot; y &quot;anexo_8_merge.xlsx&quot; que se encuentran en &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/temp_1.xlsx&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Generando la tabla temporal </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_anexo_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;anexo_3_merge.xlsx&quot;</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;anexo_8_merge.xlsx&quot;</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">df_anexo_3</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_servicio&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;nc&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="p">:]</span>
+    <span class="n">ids_ceros</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_all</span><span class="p">[</span><span class="s1">&#39;media_hora&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span><span class="s1">&#39;id_servicio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids_ceros</span><span class="p">)</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Los siguientes servicios </span><span class="si">{</span><span class="n">ids_ceros</span><span class="si">}</span><span class="s2"> no presentan información en alguno de los anexos 3 u 8!!!&quot;</span><span class="p">)</span> 
+    
+    <span class="c1"># Crear datetime a partir de hora (tiempo) a nivel de minuto </span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">)</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;min&quot;</span><span class="p">)</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">29</span><span class="p">)</span>
+
+    <span class="c1"># Seleccionar solo filas que inicio de periodo es menor a la salida y el inicio del siguiente periodo es mayor a la salida</span>
+    <span class="n">filas</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora_t&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">])</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filas</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="c1"># Calcular el tiempo que demora la expedicion</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;tiempo_demora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;distancia_integrada&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;velocidad&quot;</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="mi">60</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">),</span> <span class="s2">&quot;tiempo_demora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora_td&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora&quot;</span><span class="p">],</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Calcular hora de fin de expedicion</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;tiempo_demora_td&quot;</span><span class="p">]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">time</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">time</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span>
+    <span class="p">)</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span>
+    <span class="p">)</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)[:</span><span class="mi">8</span><span class="p">])</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">:,</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hora&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_tipo_bus&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;velocidad&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;distancia_base&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;distancia_integrada&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tiempo_demora&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hora_fin&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;temp_1.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;temp_1.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_all</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;temp_1.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generar_flota"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_flota">[docs]</a><span class="k">def</span> <span class="nf">generar_flota</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_temp_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Genera la tabla &quot;flota&quot; en base a los archivos &quot;temp_1.xlsx&quot; que se encuentra en &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :param archivo_temp_1: Ruta del archivo temp_1.</span>
+<span class="sd">    :type archivo_temp_1: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/flota.xlsx&quot; con datos de flota cada 10 minutos por servicio, sentido y tipo de día.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Generando tabla flota </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_minutos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">MINUTOS</span><span class="p">)</span>
+    <span class="n">df_temp_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_temp_1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_1&quot;</span><span class="p">],</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_10min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_1&quot;</span><span class="p">]</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_10min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_10min&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_2&quot;</span><span class="p">],</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin_10min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;mod_2&quot;</span><span class="p">]</span>
+    <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin_10min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp_1</span><span class="p">[</span><span class="s2">&quot;hora_fin_10min&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_minutos</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_temp_1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;cross&quot;</span><span class="p">)</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_10min&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">60.0</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;hora_fin_10min&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">60.0</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_1&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_2&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="p">:]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span>
+    <span class="p">)</span>
+
+    <span class="n">df_c</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">,</span> <span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_c</span> <span class="o">=</span> <span class="n">df_c</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s2">&quot;flota&quot;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_c</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generar_flota_mh"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_flota_mh">[docs]</a><span class="k">def</span> <span class="nf">generar_flota_mh</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Genera flota por media hora, servicio y sentido en base al tabla &quot;flota&quot; que se encuentra en &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :param archivo_flota: Ruta del archivo con datos de flota.</span>
+<span class="sd">    :type archivo_flota: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/flota_mh.xlsx&quot; con datos de flota cada 30 minutos por servicio, sentido y tipo de dia.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Generando la tabla flota mh </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_flota</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_flota</span><span class="p">)</span>
+    <span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;30T&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">time</span>
+
+    <span class="n">df_flota_gb</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_flota</span><span class="p">[[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">,</span> <span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;flota&quot;</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+            <span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">,</span> <span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota_mh.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota_mh.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_flota_gb</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota_mh.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generar_ict"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_ict">[docs]</a><span class="k">def</span> <span class="nf">generar_ict</span><span class="p">(</span>
+    <span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">archivo_perfil</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">archivo_flota_mh</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cacular ICT a partir de datos de flota por hora, servicio y sentido, perfilt teorico.</span>
+
+<span class="sd">    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :param archivo_flota: Ruta del archivo con datos de flota.</span>
+<span class="sd">    :type archivo_flota: str</span>
+
+<span class="sd">    :param archivo_perfil: Ruta del archivo con datos de perfil teórico.</span>
+<span class="sd">    :type archivo_perfil: str</span>
+
+<span class="sd">    :param archivo_flota_mh: Ruta del archivo con datos de flota cada media hora.</span>
+<span class="sd">    :type archivo_flota_mh: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/ict.xlsx&quot; con datos de ict cada 10 minutos por servicio, sentido y tipo de dia.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Generando tabla ict </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_flota</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_flota</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+    <span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">df_perfil</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_perfil</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+    <span class="n">df_perfil</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_perfil</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">df_flota_mh</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_flota_mh</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+    <span class="n">df_flota_mh</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_flota_mh</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">df_flota_mh</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;flota&quot;</span><span class="p">:</span> <span class="s2">&quot;flota_mh&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_flota</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">df_perfil</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">ids_ceros</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_all</span><span class="p">[</span><span class="s1">&#39;media_hora&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span><span class="s1">&#39;id_servicio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids_ceros</span><span class="p">)</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Los siguientes servicios </span><span class="si">{</span><span class="n">ids_ceros</span><span class="si">}</span><span class="s2"> no presentan información en el perfil teorico !!!&quot;</span><span class="p">)</span> 
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">29</span><span class="p">)</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora_t&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">,</span> <span class="s2">&quot;perfil&quot;</span><span class="p">,</span> <span class="s2">&quot;flota&quot;</span><span class="p">],</span>
+    <span class="p">]</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_flota_mh</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">])</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">29</span><span class="p">)</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;media_hora_t&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span>
+
+    <span class="n">filas</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;diff_hora_t&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filas</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;ict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;flota&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;flota_mh&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;perfil&quot;</span><span class="p">]</span>
+
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">:,</span> <span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">,</span> <span class="s2">&quot;ict&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">time</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;ict.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;ict.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_all</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;ict.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generar_icf"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_icf">[docs]</a><span class="k">def</span> <span class="nf">generar_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcular ICF a partir del archivos &quot;anexo_8_merge.xlsx&quot; que se encuentra en la carpeta &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/icf.xlsx&quot; con datos de icf cada 10 minutos por servicio, sentido y tipo de dia.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Generando tabla icf </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_anexo_8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;anexo_8_merge.xlsx&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span>
+        <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">],</span> <span class="s2">&quot;m&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M&quot;</span><span class="p">)</span>
+
+    <span class="n">df_vc</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_anexo_8</span><span class="o">.</span><span class="n">value_counts</span><span class="p">([</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">])</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s2">&quot;salida&quot;</span><span class="p">})</span>
+    <span class="p">)</span>
+
+    <span class="n">df_vc</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;icf.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="formato_flota"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_flota">[docs]</a><span class="k">def</span> <span class="nf">formato_flota</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cambiar formato de tabla flota según especificaciones SIG y generar archivo &quot;formato_flota.xlsx&quot; en carpeta &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :param archivo_flota: Ruta del archivo de flota.</span>
+<span class="sd">    :type archivo_flota: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/formato_flota.xlsx&quot; con datos de flota (pivoteada) cada 10 minutos por servicio, sentido y tipo de dia.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Pivoteando la tabla flota </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_flota</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_flota</span><span class="p">)</span>
+    <span class="n">df_flota</span> <span class="o">=</span> <span class="n">df_flota</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df_flota</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;nc&quot;</span><span class="p">),</span> <span class="p">:]</span>
+    <span class="n">df_flota</span> <span class="o">=</span> <span class="n">df_flota</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="n">df_flota_pivot</span> <span class="o">=</span> <span class="n">df_flota</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">],</span>
+        <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;minuto&quot;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flota&quot;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_flota_pivot</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_flota_pivot</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">})</span>
+    <span class="n">df_flota_pivot</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="s2">&quot;Servicio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_sentido&quot;</span><span class="p">:</span> <span class="s2">&quot;Sentido&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">:</span> <span class="s2">&quot;Tipo de dia&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_flota.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_flota.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_flota_pivot</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_flota.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="formato_ict"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_ict">[docs]</a><span class="k">def</span> <span class="nf">formato_ict</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_ict</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cambiar formato de tabla ict según especificaciones SIG y generar archivo &quot;formato_ict.xlsx&quot; en carpeta &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :param archivo_ict: Ruta del archivo ICT.</span>
+<span class="sd">    :type archivo_ict: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/formato_flota.xlsx&quot; con datos de ict (pivoteada) cada 10 minutos por servicio, sentido y tipo de día.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Pivoteando la tabla ict </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_ict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_ict</span><span class="p">)</span>
+    <span class="n">df_ict</span> <span class="o">=</span> <span class="n">df_ict</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df_ict</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;nc&quot;</span><span class="p">),</span> <span class="p">:]</span>
+    <span class="n">df_ict</span> <span class="o">=</span> <span class="n">df_ict</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">df_ict</span><span class="p">[</span><span class="s2">&quot;ict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_ict</span><span class="p">[</span><span class="s2">&quot;ict&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">round</span><span class="p">)</span>
+    <span class="n">df_ict_pivot</span> <span class="o">=</span> <span class="n">df_ict</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">],</span>
+        <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;minuto&quot;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;ict&quot;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_ict_pivot</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_ict_pivot</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">})</span>
+    <span class="n">df_ict_pivot</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="s2">&quot;Servicio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_sentido&quot;</span><span class="p">:</span> <span class="s2">&quot;Sentido&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">:</span> <span class="s2">&quot;Tipo de dia&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_ict.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_ict.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_ict_pivot</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_ict.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="formato_icf"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_icf">[docs]</a><span class="k">def</span> <span class="nf">formato_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_icf</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cambiar formato de tabla icf según especificaciones SIG y generar archivo &quot;formato_icf.xlsx&quot; en carpeta &quot;dir_carpeta_resultados&quot;.</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :param archivo_icf: Ruta del archivo ICF.</span>
+<span class="sd">    :type archivo_icf: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/formato_flota.xlsx&quot; con datos de icf (pivoteada) cada 10 minutos por servicio, sentido y tipo de dia.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Pivoteando la tabla icf </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_icf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_icf</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+    <span class="n">df_icf</span> <span class="o">=</span> <span class="n">df_icf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df_icf</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;nc&quot;</span><span class="p">),</span> <span class="p">:]</span>
+    <span class="n">df_icf</span> <span class="o">=</span> <span class="n">df_icf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">df_icf_pivot</span> <span class="o">=</span> <span class="n">df_icf</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">],</span>
+        <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;minuto&quot;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;salida&quot;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_icf_pivot</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_icf_pivot</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">})</span>
+    <span class="n">df_icf_pivot</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="s2">&quot;Servicio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_sentido&quot;</span><span class="p">:</span> <span class="s2">&quot;Sentido&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">:</span> <span class="s2">&quot;Tipo de dia&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_icf.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_icf.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df_icf_pivot</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;formato_icf.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="codificar_perfil"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.codificar_perfil">[docs]</a><span class="k">def</span> <span class="nf">codificar_perfil</span><span class="p">(</span><span class="n">archivo_perfil</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Codificar &quot;sentido&quot; y &quot;tipo de dia&quot; del perfil teórico según especificaciones SIG y generar archivo &quot;perfil.xlsx&quot; en carpeta dir_carpeta_resultados.</span>
+
+<span class="sd">    :param archivo_perfil: Ruta del archivo del perfil teórico.</span>
+<span class="sd">    :type archivo_perfil: str</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/perfil.xlsx&quot; del perfil teorico con codificaciones de sentido y tipo de día.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Renombrando valores del perfil teórico</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo_perfil</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id_sentido&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentido&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">&quot;Ida&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Ret&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;tipo dia&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">&quot;Laboral&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Sábado&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Domingo&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;servicio&quot;</span><span class="p">:</span> <span class="s2">&quot;id_servicio&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;perfil.xlsx&quot;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;perfil.xlsx&quot;</span><span class="p">))</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;perfil.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="generar_icf_mh"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_icf_mh">[docs]</a><span class="k">def</span> <span class="nf">generar_icf_mh</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcular ICF a partir del archivos &quot;anexo_8_merge.xlsx&quot; que se encuentra en la carpeta dir_carpeta_resultados.</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
+<span class="sd">    :type dir_carpeta_resultados: str</span>
+
+<span class="sd">    :return: Archivo ubicado en &quot;~/[dir_carpeta_resultados]/icf.xlsx&quot; con datos de icf cada 10 minutos por servicio, sentido y tipo de día.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        Generando tabla icf mh </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df_anexo_8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;anexo_8_merge.xlsx&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span>
+        <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">],</span> <span class="s2">&quot;m&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anexo_8</span><span class="p">[</span><span class="s2">&quot;minuto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M&quot;</span><span class="p">)</span>
+
+    <span class="n">df_vc</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_anexo_8</span><span class="o">.</span><span class="n">value_counts</span><span class="p">([</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">,</span> <span class="s2">&quot;id_sentido&quot;</span><span class="p">,</span> <span class="s2">&quot;id_tipo_dia&quot;</span><span class="p">,</span> <span class="s2">&quot;minuto&quot;</span><span class="p">])</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s2">&quot;salida&quot;</span><span class="p">})</span>
+    <span class="p">)</span>
+
+    <span class="n">df_vc</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;icf_mh.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">dtpm-util</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">dtpm_util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, José Manuel Vera.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

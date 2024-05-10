@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+
+<html lang="esp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dtpm_util.cuadro_de_mando.core &#8212; dtpm-util 0.3.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for dtpm_util.cuadro_de_mando.core</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dtpm_util.utilidades.preprocesamiento</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">concatenar_anexo_3</span><span class="p">,</span>
+    <span class="n">concatenar_anexo_8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dtpm_util.cuadro_de_mando.operaciones</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">codificar_perfil</span><span class="p">,</span>
+    <span class="n">generar_tabla_temp_1</span><span class="p">,</span>
+    <span class="n">generar_flota</span><span class="p">,</span>
+    <span class="n">generar_flota_mh</span><span class="p">,</span>
+    <span class="n">generar_ict</span><span class="p">,</span>
+    <span class="n">generar_icf</span><span class="p">,</span>
+    <span class="n">formato_flota</span><span class="p">,</span>
+    <span class="n">formato_ict</span><span class="p">,</span>
+    <span class="n">formato_icf</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="calcular"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.core.calcular">[docs]</a><span class="k">def</span> <span class="nf">calcular</span><span class="p">(</span>
+    <span class="n">carpeta_anexos</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">archivo_perfil</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;resultados_cuadro_de_mando&quot;</span><span class="p">,</span>
+    <span class="n">concatenar_anexos</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula según programa de operación los archivos necesarios para la carga del cuadro de mando.</span>
+
+<span class="sd">    :param carpeta_anexos: Ruta de la carpeta con carpetas de anexo 3, anexo 4 (lic. 2019) y anexo 8 (lic. 2012).</span>
+<span class="sd">    :type carpeta_anexos: str</span>
+
+<span class="sd">    :param archivo_perfil: Ruta de la archivo con perfil teórico.</span>
+<span class="sd">    :type archivo_perfil: str</span>
+
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde entregar los archivos de resultado.</span>
+<span class="sd">    :type dir_carpeta_resultados: str [opcional]</span>
+
+<span class="sd">    :param concatenar_anexos: Si es True, concatena los anexos 3 y 8 en un solo archivo, respectivamente.</span>
+<span class="sd">    :type concatenar_anexos: bool [opcional]</span>
+
+<span class="sd">    :return: Archivos de resultado en dir_carpeta_resultados.</span>
+
+<span class="sd">    :Example:</span>
+<span class="sd">    calculos.calculo_cuadro_de_mando(</span>
+<span class="sd">        carpeta_anexos=&#39;anexos&#39;,</span>
+<span class="sd">        archivo_perfil=&#39;perfil_teorico.xlsx&#39;,</span>
+<span class="sd">        dir_carpeta_resultados=&#39;resultados&#39;</span>
+<span class="sd">    )</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">exist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">concatenar_anexos</span><span class="p">:</span>
+        <span class="n">concatenar_anexo_3</span><span class="p">(</span>
+            <span class="n">carpeta_anexos</span><span class="p">,</span> <span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="n">dir_subcarpeta</span><span class="o">=</span><span class="s2">&quot;anexo_3&quot;</span>
+        <span class="p">)</span>
+        <span class="n">concatenar_anexo_8</span><span class="p">(</span><span class="n">carpeta_anexos</span><span class="p">,</span> <span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">        # -- # -- # Generacion de archivos Cuadro de Mando # -- # -- # </span><span class="se">\n</span><span class="s2"> &quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">codificar_perfil</span><span class="p">(</span><span class="n">archivo_perfil</span><span class="p">,</span> <span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="n">generar_tabla_temp_1</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="n">generar_flota</span><span class="p">(</span>
+        <span class="n">dir_carpeta_resultados</span><span class="p">,</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;temp_1.xlsx&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">generar_flota_mh</span><span class="p">(</span>
+        <span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">generar_ict</span><span class="p">(</span>
+        <span class="n">dir_carpeta_resultados</span><span class="p">,</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;perfil.xlsx&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota_mh.xlsx&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">generar_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">)</span>
+    <span class="n">formato_flota</span><span class="p">(</span>
+        <span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">formato_ict</span><span class="p">(</span>
+        <span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;ict.xlsx&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">formato_icf</span><span class="p">(</span>
+        <span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;icf.xlsx&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;        # -- # -- # Terminado!! # -- # -- #&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">dtpm-util</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">dtpm_util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, José Manuel Vera.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

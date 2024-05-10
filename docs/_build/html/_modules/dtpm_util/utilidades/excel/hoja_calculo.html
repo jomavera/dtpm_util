@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+
+<html lang="esp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dtpm_util.utilidades.excel.hoja_calculo &#8212; dtpm-util 0.3.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for dtpm_util.utilidades.excel.hoja_calculo</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+
+
+<div class="viewcode-block" id="abrir_archivo"><a class="viewcode-back" href="../../../../dtpm_util.utilidades.excel.html#dtpm_util.utilidades.excel.hoja_calculo.abrir_archivo">[docs]</a><span class="k">def</span> <span class="nf">abrir_archivo</span><span class="p">(</span>
+    <span class="n">archivo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tipo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">carpeta</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mensaje_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;No se encontró el archivo&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Escribe una hoja de Excel con los datos de un DataFrame de pandas.</span>
+
+<span class="sd">    :param archivo: Nombre del archivo a leer.</span>
+<span class="sd">    :type archivo: str</span>
+
+<span class="sd">    :param tipo: Extension del archivo a leer.</span>
+<span class="sd">    :type tipo: str</span>
+
+<span class="sd">    :param carpeta: Ruta de la carpeta donde se encuentra el archivo.</span>
+<span class="sd">    :type carpeta: str [opcional]</span>
+
+<span class="sd">    :param mensaje_error: Mensaje de error a mostrar si no se encuentra el archivo.</span>
+<span class="sd">    :type mensaje_error: str [opcional]</span>
+
+<span class="sd">    :return: pandas.DataFrame con los datos del archivo abierto.</span>
+<span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">carpeta</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dir_archivo</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">carpeta</span><span class="p">,</span> <span class="n">archivo</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dir_archivo</span> <span class="o">=</span> <span class="n">archivo</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_archivo</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;        Cargando archivo </span><span class="si">{</span><span class="n">dir_archivo</span><span class="si">}</span><span class="s2">....</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s2">&quot;xlsx&quot;</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">dir_archivo</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tipo</span> <span class="o">==</span> <span class="s1">&#39;csv&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sep</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dir_archivo</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">sep</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dir_archivo</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="n">mensaje_error</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="escribir_hoja_anexo_8"><a class="viewcode-back" href="../../../../dtpm_util.utilidades.excel.html#dtpm_util.utilidades.excel.hoja_calculo.escribir_hoja_anexo_8">[docs]</a><span class="k">def</span> <span class="nf">escribir_hoja_anexo_8</span><span class="p">(</span>
+    <span class="n">unidad_de_negocio</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">excel</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">,</span> <span class="n">hoja</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Escribe una hoja de Excel con los datos de un DataFrame de pandas.</span>
+
+<span class="sd">    :param unidad_de_negocio: Unidad de negocio del anexo 8.</span>
+<span class="sd">    :type unidad_de_negocio: str</span>
+
+<span class="sd">    :param excel: Objecto de ExcelFile del cual se quiere concatenar los datos de la hoja.</span>
+<span class="sd">    :type excel: pandas.ExcelFile</span>
+
+<span class="sd">    :param hoja: nombre de la hoja (id_servicio) con que se quiere escribir hoja de Excel.</span>
+<span class="sd">    :type hoja: str</span>
+
+<span class="sd">    :param df: DataFrame a añadirse los datos de la hoja de Excel.</span>
+<span class="sd">    :type df: pandas.core.frame.DataFrame</span>
+
+<span class="sd">    :return: Guarda datos en la hoja de Excel</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cod_usuario</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">hoja</span><span class="p">),</span><span class="s1">&#39;codigo_usuario&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">excel</span><span class="o">.</span><span class="n">create_sheet</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">hoja</span><span class="p">)</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;UNIDAD DE NEGOCIO&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;A2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CODIGO TS&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;A3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CÓDIGO USUARIO&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;D1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unidad_de_negocio</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;D2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hoja</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;D3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cod_usuario</span>
+
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;B7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Laboral&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;B8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Diurno&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;B9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;C9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TB&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;D9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RET&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;E9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;F7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Laboral&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;F8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Nocturno&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;F9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;G9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TB&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;H9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RET&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;I9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;J7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Sábado&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;J8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Diurno&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;J9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;K9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TB&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;L9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RET&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;M9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;N7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Sábado&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;N8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Nocturno&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;N9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;O9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TB&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;P9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RET&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;Q9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;R7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Domingo&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;R8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Diurno&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;R9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;S9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TB&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;T9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RET&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;U9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;V7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Domingo&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;V8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Nocturno&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;V9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;W9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TB&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;X9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RET&quot;</span>
+    <span class="n">ws</span><span class="p">[</span><span class="s2">&quot;Y9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;IDA&quot;</span>
+
+    <span class="n">dict_col</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Laboral_Ida_diurno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Laboral_Ret_diurno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Laboral_Ida_nocturno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Laboral_Ret_nocturno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Sábado_Ida_diurno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="s2">&quot;K&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Sábado_Ret_diurno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Sábado_Ida_nocturno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Sábado_Ret_nocturno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Domingo_Ida_diurno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Domingo_Ret_diurno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Domingo_Ida_nocturno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;V&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Domingo_Ret_nocturno&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">tipo_dia</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Laboral&quot;</span><span class="p">,</span> <span class="s2">&quot;Sábado&quot;</span><span class="p">,</span> <span class="s2">&quot;Domingo&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">sentido</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Ida&quot;</span><span class="p">,</span> <span class="s2">&quot;Ret&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">periodo</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;diurno&quot;</span><span class="p">,</span> <span class="s2">&quot;nocturno&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">periodo</span> <span class="o">==</span> <span class="s2">&quot;diurno&quot;</span><span class="p">:</span>
+                    <span class="n">hora_inicio</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+                        <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">UTC</span>
+                    <span class="p">)</span>
+                    <span class="n">hora_fin</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+                        <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">UTC</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">hora_inicio</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+                        <span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">UTC</span>
+                    <span class="p">)</span>
+                    <span class="n">hora_fin</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">UTC</span><span class="p">)</span>
+
+                <span class="n">df_temp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;id_servicio&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">hoja</span><span class="p">)</span>
+                    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;tipo_dia&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">tipo_dia</span><span class="p">)</span>
+                    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentido&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sentido</span><span class="p">)</span>
+                    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">hora_inicio</span><span class="p">)</span>
+                    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">hora_fin</span><span class="p">),</span>
+                    <span class="p">:,</span>
+                <span class="p">]</span>
+
+                <span class="n">col_hora</span> <span class="o">=</span> <span class="n">dict_col</span><span class="p">[</span><span class="n">tipo_dia</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">sentido</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">periodo</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">col_tb</span> <span class="o">=</span> <span class="n">dict_col</span><span class="p">[</span><span class="n">tipo_dia</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">sentido</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">periodo</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">fila</span> <span class="o">=</span> <span class="mi">10</span>
+                <span class="n">contador</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                    <span class="n">ws</span><span class="p">[</span><span class="n">col_hora</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fila</span> <span class="o">+</span> <span class="n">contador</span><span class="p">)]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;hora&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                    <span class="n">ws</span><span class="p">[</span><span class="n">col_tb</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fila</span> <span class="o">+</span> <span class="n">contador</span><span class="p">)]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;id_tipo_bus&quot;</span><span class="p">]</span>
+                    <span class="n">contador</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="leer_hoja"><a class="viewcode-back" href="../../../../dtpm_util.utilidades.excel.html#dtpm_util.utilidades.excel.hoja_calculo.leer_hoja">[docs]</a><span class="k">def</span> <span class="nf">leer_hoja</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">archivo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hoja</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">columnas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">tipo_dia</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">sentido</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">header</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="n">fecha_po</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lee hora una hoja de Excel y concatena los datos a un DataFrame de pandas</span>
+
+<span class="sd">    :param df: DataFrame a añadirse los datos de la hoja de Excel.</span>
+<span class="sd">    :type df: pandas.core.frame.DataFrame</span>
+
+<span class="sd">    :param archivo: Ruta del archivo a extraerse los datos.</span>
+<span class="sd">    :type archivo: str</span>
+
+<span class="sd">    :param hoja: Nombre de la hoja del archivo a extraerse los datos.</span>
+<span class="sd">    :type hoja: str</span>
+
+<span class="sd">    :param columnas: Nombres de las columnas a leerse.</span>
+<span class="sd">    :type columnas: list[str]</span>
+
+<span class="sd">    :param tipo_dia: Tipo de dia de las salidas de las expediciones descritas en la hoja de Excel.</span>
+<span class="sd">    :type tipo_dia: str</span>
+
+<span class="sd">    :param sentido: Sentido de las salidas de las expediciones descritas en la hoja de Excel.</span>
+<span class="sd">    :type sentido: str</span>
+
+<span class="sd">    :param header: Número de fila desde donde empieza la tabla en la hoja de Excel.</span>
+<span class="sd">    :type header: int</span>
+
+<span class="sd">    </span>
+
+<span class="sd">    :return: pandas DataFrame con los datos adjuntados de la hoja de Excel leída.</span>
+<span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo</span><span class="p">,</span> <span class="n">hoja</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">columnas</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">fecha_po</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hoja</span><span class="p">),</span>
+                    <span class="s2">&quot;sentido&quot;</span><span class="p">:</span> <span class="n">sentido</span><span class="p">,</span>
+                    <span class="s2">&quot;tipo_dia&quot;</span><span class="p">:</span> <span class="n">tipo_dia</span><span class="p">,</span>
+                    <span class="s2">&quot;hora&quot;</span><span class="p">:</span> <span class="n">fila</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;id_tipo_bus&quot;</span><span class="p">:</span> <span class="n">fila</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="s2">&quot;fecha_po&quot;</span><span class="p">:</span> <span class="n">fecha_po</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hoja</span><span class="p">),</span>
+                    <span class="s2">&quot;sentido&quot;</span><span class="p">:</span> <span class="n">sentido</span><span class="p">,</span>
+                    <span class="s2">&quot;tipo_dia&quot;</span><span class="p">:</span> <span class="n">tipo_dia</span><span class="p">,</span>
+                    <span class="s2">&quot;hora&quot;</span><span class="p">:</span> <span class="n">fila</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;id_tipo_bus&quot;</span><span class="p">:</span> <span class="n">fila</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">)</span>            
+
+        <span class="n">df_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_all</span><span class="p">,</span> <span class="n">serie</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_all</span></div>
+
+<div class="viewcode-block" id="leer_hoja_servicios"><a class="viewcode-back" href="../../../../dtpm_util.utilidades.excel.html#dtpm_util.utilidades.excel.hoja_calculo.leer_hoja_servicios">[docs]</a><span class="k">def</span> <span class="nf">leer_hoja_servicios</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">archivo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hoja</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">columnas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">tipo_dia</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">sentido</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">fecha_inicio</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">fecha_fin</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">un</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">header</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lee hora una hoja de Excel y concatena los datos a un DataFrame de pandas</span>
+
+<span class="sd">    :param df: DataFrame a añadirse los datos de la hoja de Excel.</span>
+<span class="sd">    :type df: pandas.core.frame.DataFrame</span>
+
+<span class="sd">    :param archivo: Ruta del archivo a extraerse los datos.</span>
+<span class="sd">    :type archivo: str</span>
+
+<span class="sd">    :param hoja: Nombre de la hoja del archivo a extraerse los datos.</span>
+<span class="sd">    :type hoja: str</span>
+
+<span class="sd">    :param columnas: Nombres de las columnas a leerse.</span>
+<span class="sd">    :type columnas: list[str]</span>
+
+<span class="sd">    :param tipo_dia: Tipo de dia de las salidas de las expediciones descritas en la hoja de Excel.</span>
+<span class="sd">    :type tipo_dia: str</span>
+
+<span class="sd">    :param sentido: Sentido de las salidas de las expediciones descritas en la hoja de Excel.</span>
+<span class="sd">    :type sentido: str</span>
+
+<span class="sd">    :param header: Número de fila desde donde empieza la tabla en la hoja de Excel.</span>
+<span class="sd">    :type header: int</span>
+
+<span class="sd">    :return: pandas DataFrame con los datos adjuntados de la hoja de Excel leída.</span>
+<span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">archivo</span><span class="p">,</span> <span class="n">hoja</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">columnas</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">df_temp</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;Fecha Inicio&quot;</span><span class="p">:</span><span class="n">fecha_inicio</span><span class="p">,</span>
+                <span class="s2">&quot;Fecha Fin&quot;</span><span class="p">:</span><span class="n">fecha_fin</span><span class="p">,</span>
+                <span class="s2">&quot;UN&quot;</span><span class="p">:</span><span class="n">un</span><span class="p">,</span>
+                <span class="s2">&quot;tipo_dia&quot;</span><span class="p">:</span> <span class="n">tipo_dia</span><span class="p">,</span>
+                <span class="s2">&quot;id_servicio&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hoja</span><span class="p">),</span>
+                <span class="s2">&quot;sentido&quot;</span><span class="p">:</span> <span class="n">sentido</span>
+            <span class="p">}</span>
+        <span class="p">)</span>       
+        <span class="n">df_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">serie</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">df_all</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">dtpm-util</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">dtpm_util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, José Manuel Vera.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
