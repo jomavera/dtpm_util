@@ -22,26 +22,26 @@ def calculo_demoras_conteo_buses_por_pr(
 ):
     """Función que calcula las demoras de los buses en cada PR
 
-    param: dir_datos: Ruta donde se encuentran los datos de entrada
-    type: dir_datos: str
+    :param dir_datos: Ruta donde se encuentran los datos de entrada
+    :type dir_datos: str
 
-    param: nombre_archivos_pr: Nombre tipo de los archivos de pulsaciones de PR
-    type: nombre_archivos_pr: str
+    :param nombre_archivos_pr: Nombre tipo de los archivos de pulsaciones de PR
+    :type nombre_archivos_pr: str
 
-    param: nombre_archivos_patentes: Nombre tipo de los archivos de las patentes habilitadas por dia
-    type: nombre_archivos_patentes: str
+    :param nombre_archivos_patentes: Nombre tipo de los archivos de las patentes habilitadas por dia
+    :type nombre_archivos_patentes: str
 
-    param: dir_listado_pr: Ruta donde se encuentra el archivo con el listado de los PR
-    type: dir_listado_pr: str
+    :param dir_listado_pr: Ruta donde se encuentra el archivo con el listado de los PR
+    :type dir_listado_pr: str
 
-    param: dir_dicc_servicios: Ruta donde se encuentra el archivo con el diccionario de servicios
-    type: dir_dicc_servicios: str
+    :param dir_dicc_servicios: Ruta donde se encuentra el archivo con el diccionario de servicios
+    :type dir_dicc_servicios: str
 
-    param: dir_resultados: Ruta donde se guardan los resultados
-    type: dir_resultados: str [Opcional]
+    :param dir_resultados: Ruta donde se guardan los resultados
+    :type dir_resultados: str [Opcional]
 
-    param: frecuencia: Frecuencia de tiempo de medición
-    type: frecuencia: str [Opcional]   
+    :param frecuencia: Frecuencia de tiempo de medición
+    :type frecuencia: str [Opcional]   
 
     :return: Dos arcivos en la ruta "~/dir_resultados": "Conteos_Buses_PR.csv" y "Demoras_Buses_PR.csv"
     """

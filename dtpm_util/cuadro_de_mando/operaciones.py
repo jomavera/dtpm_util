@@ -99,7 +99,7 @@ def generar_tabla_temp_1(dir_carpeta_resultados: str):
 def generar_flota(dir_carpeta_resultados: str, archivo_temp_1: str):
     """Genera la tabla "flota" en base a los archivos "temp_1.xlsx" que se encuentra en "dir_carpeta_resultados".
 
-    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.
+    :param dir_carpeta_resultados: Ruta de la carpeta resultados.
     :type dir_carpeta_resultados: str
 
     :param archivo_temp_1: Ruta del archivo temp_1.
@@ -163,7 +163,7 @@ def generar_flota(dir_carpeta_resultados: str, archivo_temp_1: str):
 def generar_flota_mh(dir_carpeta_resultados: str, archivo_flota: str):
     """Genera flota por media hora, servicio y sentido en base al tabla "flota" que se encuentra en "dir_carpeta_resultados".
 
-    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.
+    :param dir_carpeta_resultados: Ruta de la carpeta resultados.
     :type dir_carpeta_resultados: str
 
     :param archivo_flota: Ruta del archivo con datos de flota.
@@ -207,7 +207,7 @@ def generar_ict(
 ):
     """Cacular ICT a partir de datos de flota por hora, servicio y sentido, perfilt teorico.
 
-    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.
+    :param dir_carpeta_resultados: Ruta de la carpeta resultados.
     :type dir_carpeta_resultados: str
 
     :param archivo_flota: Ruta del archivo con datos de flota.

@@ -18,7 +18,7 @@ def generar_insumos_eventos_exogenos_un(
     :param dir_lbs: Ruta de la carpeta con archivos de LBS.
     :type dir_lbs: str
 
-    :param dir_diccionario_periodo Ruta del archivo de Excel con diccionario de periodos LIC 2012.
+    :param dir_diccionario_periodo: Ruta del archivo de Excel con diccionario de periodos LIC 2012.
     :type dir_diccionario_periodo: str
 
     :param dir_diccionario_codigos_servicios: Ruta del archivo de Excel con diccionario de codigos de servicios.
@@ -33,6 +33,8 @@ def generar_insumos_eventos_exogenos_un(
     calculos.procesar_eventos_exogenos(
         dir_anexo_3='anexo_3',
         dir_lbs='lbs',
+        dir_diccionario_periodo='diccionario_periodos.xlsx',
+        dir_diccionario_codigos_servicios='diccionario_codigos_servicios.xlsx',
         dir_diccionario='diccionario.xlsx',
         dir_resultados='resultados'
     )
@@ -95,7 +97,7 @@ def generar_insumos_eventos_exogenos(
     :param dir_lbs: Ruta de la carpeta con archivos de LBS.
     :type dir_lbs: str
 
-    :param dir_diccionario_periodo Ruta del archivo de Excel con diccionario de periodos LIC 2019.
+    :param dir_diccionario_periodo: Ruta del archivo de Excel con diccionario de periodos LIC 2019.
     :type dir_diccionario_periodo: str
 
     :param dir_diccionario_codigos_servicios: Ruta del archivo de Excel con diccionario de codigos de servicios.

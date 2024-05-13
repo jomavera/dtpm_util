@@ -146,11 +146,11 @@ def extractor_pr(
 def carga_patentes_seremitt(carpeta: str, nom_registros_patentes: str):
     """Función que carga los archivos de patentes de la SEREMITT RM
 
-    param: carpeta: Ruta donde se encuentran los archivos de patentes de la SEREMITT RM
-    type: carpeta: str
+    :param carpeta: Ruta donde se encuentran los archivos de patentes de la SEREMITT RM
+    :type carpeta: str
 
-    param: nom_registros_patentes: Nombre tipo de los archivos de patentes de la SEREMITT RM
-    type: nom_registros_patentes: str
+    :param nom_registros_patentes: Nombre tipo de los archivos de patentes de la SEREMITT RM
+    :type nom_registros_patentes: str
 
     :return: Dataframe con los registros de patentes de la SEREMITT RM
     :rtype: pandas.core.frame.DataFrame
@@ -189,11 +189,11 @@ def carga_patentes_seremitt(carpeta: str, nom_registros_patentes: str):
 def determinar_un(df_pulsaciones: pd.DataFrame, df_patentes: pd.DataFrame):
     """Función que cruza tiempos de regulacion con patentes para determinar unidad de negocio por tiempo de regulacion
 
-    param: df_pulsaciones: Dataframe con los registros de las pulsaciones de los buses
-    type: df_pulsaciones: pandas.core.frame.DataFrame
+    :param df_pulsaciones: Dataframe con los registros de las pulsaciones de los buses
+    :type df_pulsaciones: pandas.core.frame.DataFrame
 
-    param: df_patentes: Dataframe con los registros de las patentes de los buses
-    type: df_patentes: pandas.core.frame.DataFrame
+    :param df_patentes: Dataframe con los registros de las patentes de los buses
+    :type df_patentes: pandas.core.frame.DataFrame
 
     :return: Dataframe con los registros de las demoras de los buses en los PR
     :rtype: pandas.core.frame.DataFrame
@@ -241,17 +241,17 @@ def procesamiento_registros_pr(
 ):
     """Función que procesa los registros de pulsaciones de los buses para determinar los tiempo de regulacion en cada PR
 
-    param: carpeta: Ruta donde se encuentran los archivos de pulsaciones de los buses
-    type: carpeta: str
+    :param carpeta: Ruta donde se encuentran los archivos de pulsaciones de los buses
+    :type carpeta: str
 
-    param: nom_registros_gps: Nombre tipo de los archivos de pulsaciones de los buses
-    type: nom_registros_gps: str
+    :param nom_registros_gps: Nombre tipo de los archivos de pulsaciones de los buses
+    :type nom_registros_gps: str
 
-    param: listado_PR: Dataframe con los registros de los PR
-    type: listado_PR: pandas.core.frame.DataFrame
+    :param listado_PR: Dataframe con los registros de los PR
+    :type listado_PR: pandas.core.frame.DataFrame
 
-    param: loaded_files: Lista con los archivos ya procesados
-    type: loaded_files: List[str]
+    :param loaded_files: Lista con los archivos ya procesados
+    :type loaded_files: List[str]
 
     :return: Dataframe con los tiempos de regulacion de los buses en cada PR procesados de todos los archivos de la carpeta
     :rtype: pandas.core.frame.DataFrame
@@ -382,14 +382,14 @@ def contar_buses_por_instante(
 ):
     """Función que cuenta la cantidad de buses que ingresan y egresan de regular de cada PR en cada instante de tiempo
 
-    param: df_pulsaciones: Dataframe con los tiempos de regulacion
-    type: df_pulsaciones: pandas.core.frame.DataFrame
+    :param df_pulsaciones: Dataframe con los tiempos de regulacion
+    :type df_pulsaciones: pandas.core.frame.DataFrame
 
-    param: listado_de_pr: Dataframe con la informacion de los PR
-    type: listado_de_pr: pandas.core.frame.DataFrame
+    :param listado_de_pr: Dataframe con la informacion de los PR
+    :type listado_de_pr: pandas.core.frame.DataFrame
 
-    param: frecuencia: Frecuencia de medición de regulaciones
-    type: frecuencia: str
+    :param frecuencia: Frecuencia de medición de regulaciones
+    :type frecuencia: str
 
     :return: Dataframe con el conteo de buses por PR, unidad de negocio y servicio en cada instante de tiempo
     :rtype: pandas.core.frame.DataFrame
@@ -449,8 +449,8 @@ def contar_buses_por_instante(
 def agregar_por_un(dir_resultados):
     """Función que agrega los conteos y demoras por Unidad de Negocio
 
-    param: dir_resultados: Ruta donde se encuentran los archivos de resultados
-    type: dir_resultados: str
+    :param dir_resultados: Ruta donde se encuentran los archivos de resultados
+    :type dir_resultados: str
 
     :return: Dos archivos en la ruta "~/dir_resultados": "Conteos_Buses_PR_UN.csv" y "Demoras_Buses_PR_UN.csv"
     :rtype: None
