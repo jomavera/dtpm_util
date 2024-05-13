@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="esp" >
+<html class="writer-html5" lang="es" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dtpm_util.puntos_regulacion.funciones &mdash; dtpm-util 0.3.1 documentation</title>
+  <title>dtpm_util.puntos_regulacion.funciones &mdash; documentación de dtpm-util - 0.3.1</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,9 +13,10 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/translations.js"></script>
     <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +32,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -56,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código de módulo</a></li>
       <li class="breadcrumb-item active">dtpm_util.puntos_regulacion.funciones</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -66,7 +67,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for dtpm_util.puntos_regulacion.funciones</h1><div class="highlight"><pre>
+  <h1>Código fuente para dtpm_util.puntos_regulacion.funciones</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -77,7 +78,7 @@
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
 
 
-<div class="viewcode-block" id="extractor_pr"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.extractor_pr">[docs]</a><span class="k">def</span> <span class="nf">extractor_pr</span><span class="p">(</span>
+<div class="viewcode-block" id="extractor_pr"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.extractor_pr">[documentos]</a><span class="k">def</span> <span class="nf">extractor_pr</span><span class="p">(</span>
     <span class="n">registros_gps</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
     <span class="n">poligono_PR</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
     <span class="n">id_PR</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -212,14 +213,14 @@
     <span class="k">return</span> <span class="n">df_previo_salida</span></div>
 
 
-<div class="viewcode-block" id="carga_patentes_seremitt"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.carga_patentes_seremitt">[docs]</a><span class="k">def</span> <span class="nf">carga_patentes_seremitt</span><span class="p">(</span><span class="n">carpeta</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nom_registros_patentes</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="carga_patentes_seremitt"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.carga_patentes_seremitt">[documentos]</a><span class="k">def</span> <span class="nf">carga_patentes_seremitt</span><span class="p">(</span><span class="n">carpeta</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nom_registros_patentes</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Función que carga los archivos de patentes de la SEREMITT RM</span>
 
-<span class="sd">    param: carpeta: Ruta donde se encuentran los archivos de patentes de la SEREMITT RM</span>
-<span class="sd">    type: carpeta: str</span>
+<span class="sd">    :param carpeta: Ruta donde se encuentran los archivos de patentes de la SEREMITT RM</span>
+<span class="sd">    :type carpeta: str</span>
 
-<span class="sd">    param: nom_registros_patentes: Nombre tipo de los archivos de patentes de la SEREMITT RM</span>
-<span class="sd">    type: nom_registros_patentes: str</span>
+<span class="sd">    :param nom_registros_patentes: Nombre tipo de los archivos de patentes de la SEREMITT RM</span>
+<span class="sd">    :type nom_registros_patentes: str</span>
 
 <span class="sd">    :return: Dataframe con los registros de patentes de la SEREMITT RM</span>
 <span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
@@ -255,14 +256,14 @@
     <span class="k">return</span> <span class="n">PPU_seremitt</span></div>
 
 
-<div class="viewcode-block" id="determinar_un"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.determinar_un">[docs]</a><span class="k">def</span> <span class="nf">determinar_un</span><span class="p">(</span><span class="n">df_pulsaciones</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">df_patentes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<div class="viewcode-block" id="determinar_un"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.determinar_un">[documentos]</a><span class="k">def</span> <span class="nf">determinar_un</span><span class="p">(</span><span class="n">df_pulsaciones</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">df_patentes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Función que cruza tiempos de regulacion con patentes para determinar unidad de negocio por tiempo de regulacion</span>
 
-<span class="sd">    param: df_pulsaciones: Dataframe con los registros de las pulsaciones de los buses</span>
-<span class="sd">    type: df_pulsaciones: pandas.core.frame.DataFrame</span>
+<span class="sd">    :param df_pulsaciones: Dataframe con los registros de las pulsaciones de los buses</span>
+<span class="sd">    :type df_pulsaciones: pandas.core.frame.DataFrame</span>
 
-<span class="sd">    param: df_patentes: Dataframe con los registros de las patentes de los buses</span>
-<span class="sd">    type: df_patentes: pandas.core.frame.DataFrame</span>
+<span class="sd">    :param df_patentes: Dataframe con los registros de las patentes de los buses</span>
+<span class="sd">    :type df_patentes: pandas.core.frame.DataFrame</span>
 
 <span class="sd">    :return: Dataframe con los registros de las demoras de los buses en los PR</span>
 <span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
@@ -301,7 +302,7 @@
     <span class="k">return</span> <span class="n">bd_buses_pr_demoras</span></div>
 
 
-<div class="viewcode-block" id="procesamiento_registros_pr"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.procesamiento_registros_pr">[docs]</a><span class="k">def</span> <span class="nf">procesamiento_registros_pr</span><span class="p">(</span>
+<div class="viewcode-block" id="procesamiento_registros_pr"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.procesamiento_registros_pr">[documentos]</a><span class="k">def</span> <span class="nf">procesamiento_registros_pr</span><span class="p">(</span>
     <span class="n">carpeta</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">nom_registros_gps</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">listado_PR</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
@@ -310,17 +311,17 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Función que procesa los registros de pulsaciones de los buses para determinar los tiempo de regulacion en cada PR</span>
 
-<span class="sd">    param: carpeta: Ruta donde se encuentran los archivos de pulsaciones de los buses</span>
-<span class="sd">    type: carpeta: str</span>
+<span class="sd">    :param carpeta: Ruta donde se encuentran los archivos de pulsaciones de los buses</span>
+<span class="sd">    :type carpeta: str</span>
 
-<span class="sd">    param: nom_registros_gps: Nombre tipo de los archivos de pulsaciones de los buses</span>
-<span class="sd">    type: nom_registros_gps: str</span>
+<span class="sd">    :param nom_registros_gps: Nombre tipo de los archivos de pulsaciones de los buses</span>
+<span class="sd">    :type nom_registros_gps: str</span>
 
-<span class="sd">    param: listado_PR: Dataframe con los registros de los PR</span>
-<span class="sd">    type: listado_PR: pandas.core.frame.DataFrame</span>
+<span class="sd">    :param listado_PR: Dataframe con los registros de los PR</span>
+<span class="sd">    :type listado_PR: pandas.core.frame.DataFrame</span>
 
-<span class="sd">    param: loaded_files: Lista con los archivos ya procesados</span>
-<span class="sd">    type: loaded_files: List[str]</span>
+<span class="sd">    :param loaded_files: Lista con los archivos ya procesados</span>
+<span class="sd">    :type loaded_files: List[str]</span>
 
 <span class="sd">    :return: Dataframe con los tiempos de regulacion de los buses en cada PR procesados de todos los archivos de la carpeta</span>
 <span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
@@ -446,19 +447,19 @@
     <span class="k">return</span> <span class="n">salida_PR_preliminar</span></div>
 
 
-<div class="viewcode-block" id="contar_buses_por_instante"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.contar_buses_por_instante">[docs]</a><span class="k">def</span> <span class="nf">contar_buses_por_instante</span><span class="p">(</span>
+<div class="viewcode-block" id="contar_buses_por_instante"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.contar_buses_por_instante">[documentos]</a><span class="k">def</span> <span class="nf">contar_buses_por_instante</span><span class="p">(</span>
     <span class="n">df_pulsaciones</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">listado_de_pr</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">frecuencia</span><span class="o">=</span><span class="s2">&quot;15min&quot;</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Función que cuenta la cantidad de buses que ingresan y egresan de regular de cada PR en cada instante de tiempo</span>
 
-<span class="sd">    param: df_pulsaciones: Dataframe con los tiempos de regulacion</span>
-<span class="sd">    type: df_pulsaciones: pandas.core.frame.DataFrame</span>
+<span class="sd">    :param df_pulsaciones: Dataframe con los tiempos de regulacion</span>
+<span class="sd">    :type df_pulsaciones: pandas.core.frame.DataFrame</span>
 
-<span class="sd">    param: listado_de_pr: Dataframe con la informacion de los PR</span>
-<span class="sd">    type: listado_de_pr: pandas.core.frame.DataFrame</span>
+<span class="sd">    :param listado_de_pr: Dataframe con la informacion de los PR</span>
+<span class="sd">    :type listado_de_pr: pandas.core.frame.DataFrame</span>
 
-<span class="sd">    param: frecuencia: Frecuencia de medición de regulaciones</span>
-<span class="sd">    type: frecuencia: str</span>
+<span class="sd">    :param frecuencia: Frecuencia de medición de regulaciones</span>
+<span class="sd">    :type frecuencia: str</span>
 
 <span class="sd">    :return: Dataframe con el conteo de buses por PR, unidad de negocio y servicio en cada instante de tiempo</span>
 <span class="sd">    :rtype: pandas.core.frame.DataFrame</span>
@@ -515,11 +516,11 @@
     <span class="n">salida_conteo_buses_un_pr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">conteos</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">salida_conteo_buses_un_pr</span></div>
 
-<div class="viewcode-block" id="agregar_por_un"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.agregar_por_un">[docs]</a><span class="k">def</span> <span class="nf">agregar_por_un</span><span class="p">(</span><span class="n">dir_resultados</span><span class="p">):</span>
+<div class="viewcode-block" id="agregar_por_un"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.funciones.agregar_por_un">[documentos]</a><span class="k">def</span> <span class="nf">agregar_por_un</span><span class="p">(</span><span class="n">dir_resultados</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Función que agrega los conteos y demoras por Unidad de Negocio</span>
 
-<span class="sd">    param: dir_resultados: Ruta donde se encuentran los archivos de resultados</span>
-<span class="sd">    type: dir_resultados: str</span>
+<span class="sd">    :param dir_resultados: Ruta donde se encuentran los archivos de resultados</span>
+<span class="sd">    :type dir_resultados: str</span>
 
 <span class="sd">    :return: Dos archivos en la ruta &quot;~/dir_resultados&quot;: &quot;Conteos_Buses_PR_UN.csv&quot; y &quot;Demoras_Buses_PR_UN.csv&quot;</span>
 <span class="sd">    :rtype: None</span>
@@ -565,12 +566,12 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, José Manuel Vera.</p>
+    <p>&#169; Derechos de autor 2024, José Manuel Vera.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

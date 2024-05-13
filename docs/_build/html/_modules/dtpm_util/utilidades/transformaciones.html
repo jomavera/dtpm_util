@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="esp" >
+<html class="writer-html5" lang="es" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dtpm_util.utilidades.transformaciones &mdash; dtpm-util 0.3.1 documentation</title>
+  <title>dtpm_util.utilidades.transformaciones &mdash; documentación de dtpm-util - 0.3.1</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,9 +13,10 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/translations.js"></script>
     <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +32,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -56,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código de módulo</a></li>
       <li class="breadcrumb-item active">dtpm_util.utilidades.transformaciones</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -66,7 +67,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for dtpm_util.utilidades.transformaciones</h1><div class="highlight"><pre>
+  <h1>Código fuente para dtpm_util.utilidades.transformaciones</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">from</span> <span class="nn">xlrd</span> <span class="kn">import</span> <span class="n">xldate</span>
@@ -74,7 +75,7 @@
 <span class="kn">from</span> <span class="nn">dtpm_util.utilidades.constantes</span> <span class="kn">import</span> <span class="n">CODIGOS</span>
 
 
-<div class="viewcode-block" id="to_decimal_time"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_decimal_time">[docs]</a><span class="k">def</span> <span class="nf">to_decimal_time</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="to_decimal_time"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_decimal_time">[documentos]</a><span class="k">def</span> <span class="nf">to_decimal_time</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transformar datetime a unidades de &quot;dias&quot;.</span>
 
 <span class="sd">    :param archivo_perfil: Tiempo (Fecha y hora).</span>
@@ -90,7 +91,7 @@
     <span class="k">return</span> <span class="n">horas</span> <span class="o">/</span> <span class="mi">24</span> <span class="o">+</span> <span class="n">minutos</span> <span class="o">/</span> <span class="mi">1440</span> <span class="o">+</span> <span class="n">segundos</span> <span class="o">/</span> <span class="mi">86400</span></div>
 
 
-<div class="viewcode-block" id="to_fecha_hora"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_fecha_hora">[docs]</a><span class="k">def</span> <span class="nf">to_fecha_hora</span><span class="p">(</span><span class="n">fila</span><span class="p">):</span>
+<div class="viewcode-block" id="to_fecha_hora"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_fecha_hora">[documentos]</a><span class="k">def</span> <span class="nf">to_fecha_hora</span><span class="p">(</span><span class="n">fila</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Crea datetime a partir de date y time de las columnas &quot;Fecha&quot; y &quot;Hora_Inicio_SIG&quot; de un dataframe.</span>
 
 <span class="sd">    :param fila: Fila de un dataframe (pandas.core.series.Series) con las columnas &quot;Fecha&quot; y &quot;Hora_Inicio_SIG&quot;.</span>
@@ -113,7 +114,7 @@
     <span class="k">return</span> <span class="n">fila</span></div>
 
 
-<div class="viewcode-block" id="make_delta"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.make_delta">[docs]</a><span class="k">def</span> <span class="nf">make_delta</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="make_delta"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.make_delta">[documentos]</a><span class="k">def</span> <span class="nf">make_delta</span><span class="p">(</span><span class="n">entry</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforma de string a timedelta.</span>
 
 <span class="sd">    :param entry: Texto con formato &quot;hh:mm:ss&quot;.</span>
@@ -127,7 +128,7 @@
     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="n">minutes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="excel_date"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.excel_date">[docs]</a><span class="k">def</span> <span class="nf">excel_date</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+<div class="viewcode-block" id="excel_date"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.excel_date">[documentos]</a><span class="k">def</span> <span class="nf">excel_date</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforma de datetime a formato &#39;date de Excel&#39;.</span>
 
 <span class="sd">    :param date: Fecha en formato datetime.datetime.</span>
@@ -144,7 +145,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="a_datetime"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.a_datetime">[docs]</a><span class="k">def</span> <span class="nf">a_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="a_datetime"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.a_datetime">[documentos]</a><span class="k">def</span> <span class="nf">a_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforma de string a datetime.</span>
 
 <span class="sd">    :param x: Texto con formato &quot;%d-%m-%Y&quot; o &quot;%d/%m/%Y&quot;.</span>
@@ -161,7 +162,7 @@
         <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="to_unidad"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_unidad">[docs]</a><span class="k">def</span> <span class="nf">to_unidad</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dict_servicios</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="to_unidad"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_unidad">[documentos]</a><span class="k">def</span> <span class="nf">to_unidad</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dict_servicios</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforma de codigo TS a unidad de sevicio/negocio.</span>
 
 <span class="sd">    :param x: Codigo TS.</span>
@@ -174,7 +175,7 @@
 
     <span class="k">return</span> <span class="n">dict_servicios</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="s2">&quot;id_unidad&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="to_cod_usuario"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_cod_usuario">[docs]</a><span class="k">def</span> <span class="nf">to_cod_usuario</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dict_servicios</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="to_cod_usuario"><a class="viewcode-back" href="../../../dtpm_util.utilidades.html#dtpm_util.utilidades.transformaciones.to_cod_usuario">[documentos]</a><span class="k">def</span> <span class="nf">to_cod_usuario</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dict_servicios</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforma de codigo TS a codigo de usuario.</span>
 
 <span class="sd">    :param x: Codigo TS.</span>
@@ -195,12 +196,12 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, José Manuel Vera.</p>
+    <p>&#169; Derechos de autor 2024, José Manuel Vera.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

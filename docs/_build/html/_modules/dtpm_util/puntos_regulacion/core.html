@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="esp" >
+<html class="writer-html5" lang="es" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dtpm_util.puntos_regulacion.core &mdash; dtpm-util 0.3.1 documentation</title>
+  <title>dtpm_util.puntos_regulacion.core &mdash; documentación de dtpm-util - 0.3.1</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,9 +13,10 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/translations.js"></script>
     <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +32,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -56,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código de módulo</a></li>
       <li class="breadcrumb-item active">dtpm_util.puntos_regulacion.core</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -66,7 +67,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for dtpm_util.puntos_regulacion.core</h1><div class="highlight"><pre>
+  <h1>Código fuente para dtpm_util.puntos_regulacion.core</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">time</span>
 
@@ -79,7 +80,7 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="calculo_demoras_conteo_buses_por_pr"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.core.calculo_demoras_conteo_buses_por_pr">[docs]</a><span class="k">def</span> <span class="nf">calculo_demoras_conteo_buses_por_pr</span><span class="p">(</span>
+<div class="viewcode-block" id="calculo_demoras_conteo_buses_por_pr"><a class="viewcode-back" href="../../../dtpm_util.puntos_regulacion.html#dtpm_util.puntos_regulacion.core.calculo_demoras_conteo_buses_por_pr">[documentos]</a><span class="k">def</span> <span class="nf">calculo_demoras_conteo_buses_por_pr</span><span class="p">(</span>
     <span class="n">dir_datos</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">nombre_archivos_pr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">nombre_archivos_patentes</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -91,26 +92,26 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Función que calcula las demoras de los buses en cada PR</span>
 
-<span class="sd">    param: dir_datos: Ruta donde se encuentran los datos de entrada</span>
-<span class="sd">    type: dir_datos: str</span>
+<span class="sd">    :param dir_datos: Ruta donde se encuentran los datos de entrada</span>
+<span class="sd">    :type dir_datos: str</span>
 
-<span class="sd">    param: nombre_archivos_pr: Nombre tipo de los archivos de pulsaciones de PR</span>
-<span class="sd">    type: nombre_archivos_pr: str</span>
+<span class="sd">    :param nombre_archivos_pr: Nombre tipo de los archivos de pulsaciones de PR</span>
+<span class="sd">    :type nombre_archivos_pr: str</span>
 
-<span class="sd">    param: nombre_archivos_patentes: Nombre tipo de los archivos de las patentes habilitadas por dia</span>
-<span class="sd">    type: nombre_archivos_patentes: str</span>
+<span class="sd">    :param nombre_archivos_patentes: Nombre tipo de los archivos de las patentes habilitadas por dia</span>
+<span class="sd">    :type nombre_archivos_patentes: str</span>
 
-<span class="sd">    param: dir_listado_pr: Ruta donde se encuentra el archivo con el listado de los PR</span>
-<span class="sd">    type: dir_listado_pr: str</span>
+<span class="sd">    :param dir_listado_pr: Ruta donde se encuentra el archivo con el listado de los PR</span>
+<span class="sd">    :type dir_listado_pr: str</span>
 
-<span class="sd">    param: dir_dicc_servicios: Ruta donde se encuentra el archivo con el diccionario de servicios</span>
-<span class="sd">    type: dir_dicc_servicios: str</span>
+<span class="sd">    :param dir_dicc_servicios: Ruta donde se encuentra el archivo con el diccionario de servicios</span>
+<span class="sd">    :type dir_dicc_servicios: str</span>
 
-<span class="sd">    param: dir_resultados: Ruta donde se guardan los resultados</span>
-<span class="sd">    type: dir_resultados: str [Opcional]</span>
+<span class="sd">    :param dir_resultados: Ruta donde se guardan los resultados</span>
+<span class="sd">    :type dir_resultados: str [Opcional]</span>
 
-<span class="sd">    param: frecuencia: Frecuencia de tiempo de medición</span>
-<span class="sd">    type: frecuencia: str [Opcional]   </span>
+<span class="sd">    :param frecuencia: Frecuencia de tiempo de medición</span>
+<span class="sd">    :type frecuencia: str [Opcional]   </span>
 
 <span class="sd">    :return: Dos arcivos en la ruta &quot;~/dir_resultados&quot;: &quot;Conteos_Buses_PR.csv&quot; y &quot;Demoras_Buses_PR.csv&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -206,12 +207,12 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, José Manuel Vera.</p>
+    <p>&#169; Derechos de autor 2024, José Manuel Vera.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

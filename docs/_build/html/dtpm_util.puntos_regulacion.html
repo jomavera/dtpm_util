@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="esp" >
+<html class="writer-html5" lang="es" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dtpm_util.puntos_regulacion package &mdash; dtpm-util 0.3.1 documentation</title>
+  <title>dtpm_util.puntos_regulacion package &mdash; documentación de dtpm-util - 0.3.1</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,9 +14,10 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
     <link rel="next" title="dtpm_util.reporte_flota_salidas package" href="dtpm_util.reporte_flota_salidas.html" />
     <link rel="prev" title="dtpm_util.plazas package" href="dtpm_util.plazas.html" /> 
 </head>
@@ -34,7 +35,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,7 +80,7 @@
           <li class="breadcrumb-item"><a href="dtpm_util.html">dtpm_util package</a></li>
       <li class="breadcrumb-item active">dtpm_util.puntos_regulacion package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/dtpm_util.puntos_regulacion.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/dtpm_util.puntos_regulacion.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
       </li>
   </ul>
   <hr/>
@@ -88,128 +89,131 @@
            <div itemprop="articleBody">
              
   <section id="dtpm-util-puntos-regulacion-package">
-<h1>dtpm_util.puntos_regulacion package<a class="headerlink" href="#dtpm-util-puntos-regulacion-package" title="Permalink to this heading"></a></h1>
+<h1>dtpm_util.puntos_regulacion package<a class="headerlink" href="#dtpm-util-puntos-regulacion-package" title="Enlace permanente a este encabezado"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Enlace permanente a este encabezado"></a></h2>
 </section>
 <section id="module-dtpm_util.puntos_regulacion.core">
-<span id="dtpm-util-puntos-regulacion-core-module"></span><h2>dtpm_util.puntos_regulacion.core module<a class="headerlink" href="#module-dtpm_util.puntos_regulacion.core" title="Permalink to this heading"></a></h2>
+<span id="dtpm-util-puntos-regulacion-core-module"></span><h2>dtpm_util.puntos_regulacion.core module<a class="headerlink" href="#module-dtpm_util.puntos_regulacion.core" title="Enlace permanente a este encabezado"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.core.calculo_demoras_conteo_buses_por_pr">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.core.</span></span><span class="sig-name descname"><span class="pre">calculo_demoras_conteo_buses_por_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_datos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nombre_archivos_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nombre_archivos_patentes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_listado_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_dicc_servicios</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_resultados</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'resultados'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiempo_regulando</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'00:10:00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frecuencia</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'15min'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/core.html#calculo_demoras_conteo_buses_por_pr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.core.calculo_demoras_conteo_buses_por_pr" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.core.</span></span><span class="sig-name descname"><span class="pre">calculo_demoras_conteo_buses_por_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_datos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nombre_archivos_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nombre_archivos_patentes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_listado_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_dicc_servicios</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_resultados</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'resultados'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiempo_regulando</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'00:10:00'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frecuencia</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'15min'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/core.html#calculo_demoras_conteo_buses_por_pr"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.core.calculo_demoras_conteo_buses_por_pr" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que calcula las demoras de los buses en cada PR</p>
-<p>param: dir_datos: Ruta donde se encuentran los datos de entrada
-type: dir_datos: str</p>
-<p>param: nombre_archivos_pr: Nombre tipo de los archivos de pulsaciones de PR
-type: nombre_archivos_pr: str</p>
-<p>param: nombre_archivos_patentes: Nombre tipo de los archivos de las patentes habilitadas por dia
-type: nombre_archivos_patentes: str</p>
-<p>param: dir_listado_pr: Ruta donde se encuentra el archivo con el listado de los PR
-type: dir_listado_pr: str</p>
-<p>param: dir_dicc_servicios: Ruta donde se encuentra el archivo con el diccionario de servicios
-type: dir_dicc_servicios: str</p>
-<p>param: dir_resultados: Ruta donde se guardan los resultados
-type: dir_resultados: str [Opcional]</p>
-<p>param: frecuencia: Frecuencia de tiempo de medición
-type: frecuencia: str [Opcional]</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dos arcivos en la ruta &quot;~/dir_resultados&quot;: &quot;Conteos_Buses_PR.csv&quot; y &quot;Demoras_Buses_PR.csv&quot;</p>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dir_datos</strong> (<em>str</em>) – Ruta donde se encuentran los datos de entrada</p></li>
+<li><p><strong>nombre_archivos_pr</strong> (<em>str</em>) – Nombre tipo de los archivos de pulsaciones de PR</p></li>
+<li><p><strong>nombre_archivos_patentes</strong> (<em>str</em>) – Nombre tipo de los archivos de las patentes habilitadas por dia</p></li>
+<li><p><strong>dir_listado_pr</strong> (<em>str</em>) – Ruta donde se encuentra el archivo con el listado de los PR</p></li>
+<li><p><strong>dir_dicc_servicios</strong> (<em>str</em>) – Ruta donde se encuentra el archivo con el diccionario de servicios</p></li>
+<li><p><strong>dir_resultados</strong> (<em>str</em><em> [</em><em>Opcional</em><em>]</em>) – Ruta donde se guardan los resultados</p></li>
+<li><p><strong>frecuencia</strong> (<em>str</em><em> [</em><em>Opcional</em><em>]</em>) – Frecuencia de tiempo de medición</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dos arcivos en la ruta «~/dir_resultados»: «Conteos_Buses_PR.csv» y «Demoras_Buses_PR.csv»</p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
 <section id="module-dtpm_util.puntos_regulacion.funciones">
-<span id="dtpm-util-puntos-regulacion-funciones-module"></span><h2>dtpm_util.puntos_regulacion.funciones module<a class="headerlink" href="#module-dtpm_util.puntos_regulacion.funciones" title="Permalink to this heading"></a></h2>
+<span id="dtpm-util-puntos-regulacion-funciones-module"></span><h2>dtpm_util.puntos_regulacion.funciones module<a class="headerlink" href="#module-dtpm_util.puntos_regulacion.funciones" title="Enlace permanente a este encabezado"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.funciones.agregar_por_un">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">agregar_por_un</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_resultados</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#agregar_por_un"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.agregar_por_un" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">agregar_por_un</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_resultados</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#agregar_por_un"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.agregar_por_un" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que agrega los conteos y demoras por Unidad de Negocio</p>
-<p>param: dir_resultados: Ruta donde se encuentran los archivos de resultados
-type: dir_resultados: str</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dos archivos en la ruta &quot;~/dir_resultados&quot;: &quot;Conteos_Buses_PR_UN.csv&quot; y &quot;Demoras_Buses_PR_UN.csv&quot;</p>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir_resultados</strong> (<em>str</em>) – Ruta donde se encuentran los archivos de resultados</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dos archivos en la ruta «~/dir_resultados»: «Conteos_Buses_PR_UN.csv» y «Demoras_Buses_PR_UN.csv»</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.funciones.carga_patentes_seremitt">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">carga_patentes_seremitt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">carpeta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nom_registros_patentes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#carga_patentes_seremitt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.carga_patentes_seremitt" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">carga_patentes_seremitt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">carpeta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nom_registros_patentes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#carga_patentes_seremitt"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.carga_patentes_seremitt" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que carga los archivos de patentes de la SEREMITT RM</p>
-<p>param: carpeta: Ruta donde se encuentran los archivos de patentes de la SEREMITT RM
-type: carpeta: str</p>
-<p>param: nom_registros_patentes: Nombre tipo de los archivos de patentes de la SEREMITT RM
-type: nom_registros_patentes: str</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dataframe con los registros de patentes de la SEREMITT RM</p>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>carpeta</strong> (<em>str</em>) – Ruta donde se encuentran los archivos de patentes de la SEREMITT RM</p></li>
+<li><p><strong>nom_registros_patentes</strong> (<em>str</em>) – Nombre tipo de los archivos de patentes de la SEREMITT RM</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pandas.core.frame.DataFrame</p>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe con los registros de patentes de la SEREMITT RM</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.core.frame.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.funciones.contar_buses_por_instante">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">contar_buses_por_instante</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_pulsaciones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listado_de_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frecuencia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'15min'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#contar_buses_por_instante"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.contar_buses_por_instante" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">contar_buses_por_instante</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_pulsaciones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listado_de_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frecuencia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'15min'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#contar_buses_por_instante"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.contar_buses_por_instante" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que cuenta la cantidad de buses que ingresan y egresan de regular de cada PR en cada instante de tiempo</p>
-<p>param: df_pulsaciones: Dataframe con los tiempos de regulacion
-type: df_pulsaciones: pandas.core.frame.DataFrame</p>
-<p>param: listado_de_pr: Dataframe con la informacion de los PR
-type: listado_de_pr: pandas.core.frame.DataFrame</p>
-<p>param: frecuencia: Frecuencia de medición de regulaciones
-type: frecuencia: str</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dataframe con el conteo de buses por PR, unidad de negocio y servicio en cada instante de tiempo</p>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_pulsaciones</strong> (<em>pandas.core.frame.DataFrame</em>) – Dataframe con los tiempos de regulacion</p></li>
+<li><p><strong>listado_de_pr</strong> (<em>pandas.core.frame.DataFrame</em>) – Dataframe con la informacion de los PR</p></li>
+<li><p><strong>frecuencia</strong> (<em>str</em>) – Frecuencia de medición de regulaciones</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pandas.core.frame.DataFrame</p>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe con el conteo de buses por PR, unidad de negocio y servicio en cada instante de tiempo</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.core.frame.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.funciones.determinar_un">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">determinar_un</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_pulsaciones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_patentes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#determinar_un"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.determinar_un" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">determinar_un</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_pulsaciones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_patentes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#determinar_un"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.determinar_un" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que cruza tiempos de regulacion con patentes para determinar unidad de negocio por tiempo de regulacion</p>
-<p>param: df_pulsaciones: Dataframe con los registros de las pulsaciones de los buses
-type: df_pulsaciones: pandas.core.frame.DataFrame</p>
-<p>param: df_patentes: Dataframe con los registros de las patentes de los buses
-type: df_patentes: pandas.core.frame.DataFrame</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dataframe con los registros de las demoras de los buses en los PR</p>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_pulsaciones</strong> (<em>pandas.core.frame.DataFrame</em>) – Dataframe con los registros de las pulsaciones de los buses</p></li>
+<li><p><strong>df_patentes</strong> (<em>pandas.core.frame.DataFrame</em>) – Dataframe con los registros de las patentes de los buses</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pandas.core.frame.DataFrame</p>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe con los registros de las demoras de los buses en los PR</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.core.frame.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.funciones.extractor_pr">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">extractor_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registros_gps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poligono_PR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_PR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiempo_regulando</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#extractor_pr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.extractor_pr" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">extractor_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registros_gps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poligono_PR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_PR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiempo_regulando</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#extractor_pr"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.extractor_pr" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que extrae los tiempos de regulación en un punto de regulación</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>registros_gps</strong> (<em>pd.DataFrame</em>) -- Dataframe con las pulsaciones de los buses</p></li>
-<li><p><strong>poligono_PR</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) -- Lista con coordenadas que definen un poligono</p></li>
-<li><p><strong>id_PR</strong> (<em>int</em>) -- Identificador del punto de regulación</p></li>
+<li><p><strong>registros_gps</strong> (<em>pd.DataFrame</em>) – Dataframe con las pulsaciones de los buses</p></li>
+<li><p><strong>poligono_PR</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – Lista con coordenadas que definen un poligono</p></li>
+<li><p><strong>id_PR</strong> (<em>int</em>) – Identificador del punto de regulación</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dataframe con los tiempos de regulación de un punto de regulación</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pandas.core.frame.DataFrame</p>
 </dd>
 </dl>
@@ -217,49 +221,49 @@ type: df_patentes: pandas.core.frame.DataFrame</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="dtpm_util.puntos_regulacion.funciones.procesamiento_registros_pr">
-<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">procesamiento_registros_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">carpeta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nom_registros_gps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listado_PR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loaded_files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiempo_regulando</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'00:10:00'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#procesamiento_registros_pr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.procesamiento_registros_pr" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">dtpm_util.puntos_regulacion.funciones.</span></span><span class="sig-name descname"><span class="pre">procesamiento_registros_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">carpeta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nom_registros_gps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listado_PR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loaded_files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiempo_regulando</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'00:10:00'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dtpm_util/puntos_regulacion/funciones.html#procesamiento_registros_pr"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#dtpm_util.puntos_regulacion.funciones.procesamiento_registros_pr" title="Enlazar permanentemente con esta definición"></a></dt>
 <dd><p>Función que procesa los registros de pulsaciones de los buses para determinar los tiempo de regulacion en cada PR</p>
-<p>param: carpeta: Ruta donde se encuentran los archivos de pulsaciones de los buses
-type: carpeta: str</p>
-<p>param: nom_registros_gps: Nombre tipo de los archivos de pulsaciones de los buses
-type: nom_registros_gps: str</p>
-<p>param: listado_PR: Dataframe con los registros de los PR
-type: listado_PR: pandas.core.frame.DataFrame</p>
-<p>param: loaded_files: Lista con los archivos ya procesados
-type: loaded_files: List[str]</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dataframe con los tiempos de regulacion de los buses en cada PR procesados de todos los archivos de la carpeta</p>
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>carpeta</strong> (<em>str</em>) – Ruta donde se encuentran los archivos de pulsaciones de los buses</p></li>
+<li><p><strong>nom_registros_gps</strong> (<em>str</em>) – Nombre tipo de los archivos de pulsaciones de los buses</p></li>
+<li><p><strong>listado_PR</strong> (<em>pandas.core.frame.DataFrame</em>) – Dataframe con los registros de los PR</p></li>
+<li><p><strong>loaded_files</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Lista con los archivos ya procesados</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pandas.core.frame.DataFrame</p>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe con los tiempos de regulacion de los buses en cada PR procesados de todos los archivos de la carpeta</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.core.frame.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
 <section id="module-dtpm_util.puntos_regulacion">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dtpm_util.puntos_regulacion" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dtpm_util.puntos_regulacion" title="Enlace permanente a este encabezado"></a></h2>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="dtpm_util.plazas.html" class="btn btn-neutral float-left" title="dtpm_util.plazas package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="dtpm_util.reporte_flota_salidas.html" class="btn btn-neutral float-right" title="dtpm_util.reporte_flota_salidas package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="dtpm_util.plazas.html" class="btn btn-neutral float-left" title="dtpm_util.plazas package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="dtpm_util.reporte_flota_salidas.html" class="btn btn-neutral float-right" title="dtpm_util.reporte_flota_salidas package" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, José Manuel Vera.</p>
+    <p>&#169; Derechos de autor 2024, José Manuel Vera.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

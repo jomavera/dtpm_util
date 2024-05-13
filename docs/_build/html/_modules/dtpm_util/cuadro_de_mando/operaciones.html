@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="esp" >
+<html class="writer-html5" lang="es" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dtpm_util.cuadro_de_mando.operaciones &mdash; dtpm-util 0.3.1 documentation</title>
+  <title>dtpm_util.cuadro_de_mando.operaciones &mdash; documentación de dtpm-util - 0.3.1</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,9 +13,10 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/translations.js"></script>
     <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +32,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -56,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código de módulo</a></li>
       <li class="breadcrumb-item active">dtpm_util.cuadro_de_mando.operaciones</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -66,7 +67,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for dtpm_util.cuadro_de_mando.operaciones</h1><div class="highlight"><pre>
+  <h1>Código fuente para dtpm_util.cuadro_de_mando.operaciones</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -75,7 +76,7 @@
 
 <span class="kn">from</span> <span class="nn">dtpm_util.cuadro_de_mando.constantes</span> <span class="kn">import</span> <span class="n">MINUTOS</span>
 
-<div class="viewcode-block" id="generar_tabla_temp_1"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_tabla_temp_1">[docs]</a><span class="k">def</span> <span class="nf">generar_tabla_temp_1</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="generar_tabla_temp_1"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_tabla_temp_1">[documentos]</a><span class="k">def</span> <span class="nf">generar_tabla_temp_1</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Genera la tabla &quot;temp_1&quot; en base a los archivos &quot;anexo_3_merge.xlsx&quot; y &quot;anexo_8_merge.xlsx&quot; que se encuentran en &quot;dir_carpeta_resultados&quot;.</span>
 
 <span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
@@ -165,10 +166,10 @@
     <span class="n">df_all</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;temp_1.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="generar_flota"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_flota">[docs]</a><span class="k">def</span> <span class="nf">generar_flota</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_temp_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="generar_flota"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_flota">[documentos]</a><span class="k">def</span> <span class="nf">generar_flota</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_temp_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Genera la tabla &quot;flota&quot; en base a los archivos &quot;temp_1.xlsx&quot; que se encuentra en &quot;dir_carpeta_resultados&quot;.</span>
 
-<span class="sd">    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
 <span class="sd">    :type dir_carpeta_resultados: str</span>
 
 <span class="sd">    :param archivo_temp_1: Ruta del archivo temp_1.</span>
@@ -229,10 +230,10 @@
     <span class="n">df_c</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;flota.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="generar_flota_mh"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_flota_mh">[docs]</a><span class="k">def</span> <span class="nf">generar_flota_mh</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="generar_flota_mh"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_flota_mh">[documentos]</a><span class="k">def</span> <span class="nf">generar_flota_mh</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Genera flota por media hora, servicio y sentido en base al tabla &quot;flota&quot; que se encuentra en &quot;dir_carpeta_resultados&quot;.</span>
 
-<span class="sd">    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
 <span class="sd">    :type dir_carpeta_resultados: str</span>
 
 <span class="sd">    :param archivo_flota: Ruta del archivo con datos de flota.</span>
@@ -268,7 +269,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="generar_ict"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_ict">[docs]</a><span class="k">def</span> <span class="nf">generar_ict</span><span class="p">(</span>
+<div class="viewcode-block" id="generar_ict"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_ict">[documentos]</a><span class="k">def</span> <span class="nf">generar_ict</span><span class="p">(</span>
     <span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">archivo_perfil</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -276,7 +277,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cacular ICT a partir de datos de flota por hora, servicio y sentido, perfilt teorico.</span>
 
-<span class="sd">    :parma dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
+<span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta resultados.</span>
 <span class="sd">    :type dir_carpeta_resultados: str</span>
 
 <span class="sd">    :param archivo_flota: Ruta del archivo con datos de flota.</span>
@@ -360,7 +361,7 @@
     <span class="n">df_all</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;ict.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="generar_icf"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_icf">[docs]</a><span class="k">def</span> <span class="nf">generar_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="generar_icf"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_icf">[documentos]</a><span class="k">def</span> <span class="nf">generar_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcular ICF a partir del archivos &quot;anexo_8_merge.xlsx&quot; que se encuentra en la carpeta &quot;dir_carpeta_resultados&quot;.</span>
 
 <span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
@@ -392,7 +393,7 @@
     <span class="n">df_vc</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;icf.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="formato_flota"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_flota">[docs]</a><span class="k">def</span> <span class="nf">formato_flota</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="formato_flota"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_flota">[documentos]</a><span class="k">def</span> <span class="nf">formato_flota</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_flota</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cambiar formato de tabla flota según especificaciones SIG y generar archivo &quot;formato_flota.xlsx&quot; en carpeta &quot;dir_carpeta_resultados&quot;.</span>
 
 <span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
@@ -433,7 +434,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="formato_ict"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_ict">[docs]</a><span class="k">def</span> <span class="nf">formato_ict</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_ict</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="formato_ict"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_ict">[documentos]</a><span class="k">def</span> <span class="nf">formato_ict</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_ict</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cambiar formato de tabla ict según especificaciones SIG y generar archivo &quot;formato_ict.xlsx&quot; en carpeta &quot;dir_carpeta_resultados&quot;.</span>
 
 <span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
@@ -474,7 +475,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="formato_icf"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_icf">[docs]</a><span class="k">def</span> <span class="nf">formato_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_icf</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="formato_icf"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.formato_icf">[documentos]</a><span class="k">def</span> <span class="nf">formato_icf</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">archivo_icf</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cambiar formato de tabla icf según especificaciones SIG y generar archivo &quot;formato_icf.xlsx&quot; en carpeta &quot;dir_carpeta_resultados&quot;.</span>
 
 <span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
@@ -515,7 +516,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="codificar_perfil"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.codificar_perfil">[docs]</a><span class="k">def</span> <span class="nf">codificar_perfil</span><span class="p">(</span><span class="n">archivo_perfil</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="codificar_perfil"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.codificar_perfil">[documentos]</a><span class="k">def</span> <span class="nf">codificar_perfil</span><span class="p">(</span><span class="n">archivo_perfil</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Codificar &quot;sentido&quot; y &quot;tipo de dia&quot; del perfil teórico según especificaciones SIG y generar archivo &quot;perfil.xlsx&quot; en carpeta dir_carpeta_resultados.</span>
 
 <span class="sd">    :param archivo_perfil: Ruta del archivo del perfil teórico.</span>
@@ -537,7 +538,7 @@
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;perfil.xlsx&quot;</span><span class="p">))</span>
     <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">,</span> <span class="s2">&quot;perfil.xlsx&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="generar_icf_mh"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_icf_mh">[docs]</a><span class="k">def</span> <span class="nf">generar_icf_mh</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="generar_icf_mh"><a class="viewcode-back" href="../../../dtpm_util.cuadro_de_mando.html#dtpm_util.cuadro_de_mando.operaciones.generar_icf_mh">[documentos]</a><span class="k">def</span> <span class="nf">generar_icf_mh</span><span class="p">(</span><span class="n">dir_carpeta_resultados</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcular ICF a partir del archivos &quot;anexo_8_merge.xlsx&quot; que se encuentra en la carpeta dir_carpeta_resultados.</span>
 
 <span class="sd">    :param dir_carpeta_resultados: Ruta de la carpeta donde se encuentran los archivos de resultados.</span>
@@ -576,12 +577,12 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, José Manuel Vera.</p>
+    <p>&#169; Derechos de autor 2024, José Manuel Vera.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>
