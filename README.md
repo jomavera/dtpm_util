@@ -19,3 +19,7 @@ Luego se puede importar el módulo `dtpm_util` en Python.
 - openpyxl
 - xlrd
 - shapely >= 2.0.1
+
+### Documentación
+
+La documentación se encuentra en https://dtpm-util.readthedocs.io/es/latest/dtpm_util.html
