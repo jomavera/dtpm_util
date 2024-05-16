@@ -175,6 +175,13 @@ def transformar_lbs(archivo_lbs: str, diccionario: str):
         + df["Fecha"].apply(lambda x: str(x))
     )
 
+    df = df.groupby([ 'SSPD', 'Servicio', 'Sentido', 'Fecha', 'Numero de Periodo'], as_index=False).agg(
+        SumaExpediciones=('SumaExpediciones', 'sum'),
+        PromVelocidad=('PromVelocidad', 'mean'),
+        SumaDistancia=('SumaDistancia', 'sum'),
+        SumaTiempo=('SumaTiempo', 'sum'),
+    )
+
     return df[
         [
             "SSPD",
