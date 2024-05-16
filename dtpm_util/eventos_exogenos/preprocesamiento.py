@@ -93,7 +93,7 @@ def transformar_anexo_3(fecha: str, df: pd.DataFrame, diccionario: str, es_un: b
                 "PromVelocidad",
                 "Correlativo Periodo",
             ]
-        ]
+        ].groupby(["POSSPD", "PO", "Servicio", "Sentido", "Periodo", "Día"], as_index=False).agg({"SumaExpediciones": "sum", "PromVelocidad": "mean"})
 
 
 def transformar_lbs(archivo_lbs: str, diccionario: str):
