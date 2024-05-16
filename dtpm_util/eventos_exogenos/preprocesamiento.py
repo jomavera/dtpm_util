@@ -2,7 +2,10 @@ import pandas as pd
 
 from dtpm_util.utilidades.transformaciones import a_datetime, excel_date, make_delta
 
-def transformar_anexo_3(fecha: str, df: pd.DataFrame, diccionario: str, es_un: bool = False):
+
+def transformar_anexo_3(
+    fecha: str, df: pd.DataFrame, diccionario: str, es_un: bool = False
+):
     """Transforma anexo 3 para cruzar con eventos exogenos.
 
     :param fecha: Texto con formato "hh:mm:ss".
@@ -22,7 +25,7 @@ def transformar_anexo_3(fecha: str, df: pd.DataFrame, diccionario: str, es_un: b
     """
     df = df.astype({"media_hora": str, "id_servicio": str})
     df_dic = pd.read_excel(diccionario, dtype={"Hora inicio": str})
-    
+
     df = df.merge(
         df_dic,
         left_on=["media_hora", "Día"],
@@ -45,30 +48,37 @@ def transformar_anexo_3(fecha: str, df: pd.DataFrame, diccionario: str, es_un: b
         + df["Numero de Periodo"].apply(lambda x: str(x))
     )
 
-    df = df.loc[df['velocidad'] != 0]
-    
+    df = df.loc[df["velocidad"] != 0]
+
     if es_un:
         df.rename(
-        columns={
-            "Numero de Periodo": "Periodo",
-            "N° Salidas": "SumaExpediciones",
-            "velocidad": "PromVelocidad",
-            "id_servicio": "Servicio",
-        },
-        inplace=True,
+            columns={
+                "Numero de Periodo": "Periodo",
+                "N° Salidas": "SumaExpediciones",
+                "velocidad": "PromVelocidad",
+                "id_servicio": "Servicio",
+            },
+            inplace=True,
         )
-        return df[
-            [
-                "POSSPD",
-                "PO",
-                "Servicio",
-                "Sentido",
-                "Periodo",
-                "Día",
-                "SumaExpediciones",
-                "PromVelocidad"
+        return (
+            df[
+                [
+                    "POSSPD",
+                    "PO",
+                    "Servicio",
+                    "Sentido",
+                    "Periodo",
+                    "Día",
+                    "SumaExpediciones",
+                    "PromVelocidad",
+                ]
             ]
-        ].groupby(["POSSPD", "PO", "Servicio", "Sentido", "Periodo", "Día"], as_index=False).agg({"SumaExpediciones": "sum", "PromVelocidad": "mean"})
+            .groupby(
+                ["POSSPD", "PO", "Servicio", "Sentido", "Periodo", "Día"],
+                as_index=False,
+            )
+            .agg({"SumaExpediciones": "sum", "PromVelocidad": "mean"})
+        )
 
     else:
         df.rename(
@@ -81,19 +91,26 @@ def transformar_anexo_3(fecha: str, df: pd.DataFrame, diccionario: str, es_un: b
             },
             inplace=True,
         )
-        return df[
-            [
-                "POSSPD",
-                "PO",
-                "Servicio",
-                "Sentido",
-                "Periodo",
-                "Día",
-                "SumaExpediciones",
-                "PromVelocidad",
-                "Correlativo Periodo",
+        return (
+            df[
+                [
+                    "POSSPD",
+                    "PO",
+                    "Servicio",
+                    "Sentido",
+                    "Periodo",
+                    "Día",
+                    "SumaExpediciones",
+                    "PromVelocidad",
+                    "Correlativo Periodo",
+                ]
             ]
-        ].groupby(["POSSPD", "PO", "Servicio", "Sentido", "Periodo", "Día"], as_index=False).agg({"SumaExpediciones": "sum", "PromVelocidad": "mean"})
+            .groupby(
+                ["POSSPD", "PO", "Servicio", "Sentido", "Periodo", "Día"],
+                as_index=False,
+            )
+            .agg({"SumaExpediciones": "sum", "PromVelocidad": "mean"})
+        )
 
 
 def transformar_lbs(archivo_lbs: str, diccionario: str):
@@ -139,7 +156,7 @@ def transformar_lbs(archivo_lbs: str, diccionario: str):
     df_conteo = (
         df.value_counts(["Servicio", "Sentido", "Fecha", "Periodo", "Tipo Día"])
         .reset_index()
-        .rename(columns={'count': "SumaExpediciones"})
+        .rename(columns={"count": "SumaExpediciones"})
     )
     df["SumaDistancia"] = df["SumaDistancia"] / 1000
     df["SumaTiempo"] = df["SumaTiempo"].dt.total_seconds() / (60 * 60)
@@ -175,11 +192,14 @@ def transformar_lbs(archivo_lbs: str, diccionario: str):
         + df["Fecha"].apply(lambda x: str(x))
     )
 
-    df = df.groupby([ 'SSPD', 'Servicio', 'Sentido', 'Fecha', 'Numero de Periodo'], as_index=False).agg(
-        SumaExpediciones=('SumaExpediciones', 'sum'),
-        PromVelocidad=('PromVelocidad', 'mean'),
-        SumaDistancia=('SumaDistancia', 'sum'),
-        SumaTiempo=('SumaTiempo', 'sum'),
+    df = df.groupby(
+        ["SSPD", "Servicio", "Sentido", "Periodo", "Fecha", "Numero de Periodo"],
+        as_index=False,
+    ).agg(
+        SumaExpediciones=("SumaExpediciones", "sum"),
+        PromVelocidad=("PromVelocidad", "mean"),
+        SumaDistancia=("SumaDistancia", "sum"),
+        SumaTiempo=("SumaTiempo", "sum"),
     )
 
     return df[
@@ -198,7 +218,9 @@ def transformar_lbs(archivo_lbs: str, diccionario: str):
     ]
 
 
-def transformar_lbs_un(archivo_lbs: str, diccionario_periodos: str, dir_diccionario_codigos: str = None):
+def transformar_lbs_un(
+    archivo_lbs: str, diccionario_periodos: str, dir_diccionario_codigos: str = None
+):
     """Transforma LBS para cruzar con eventos exogenos para Unidades de negocios (Lic. 2012).
 
     :param archivo_lbs: Ruta del archivo LBS.
@@ -236,7 +258,9 @@ def transformar_lbs_un(archivo_lbs: str, diccionario_periodos: str, dir_dicciona
 
     if dir_diccionario_codigos != None:
         df = df.merge(
-            pd.read_excel(dir_diccionario_codigos, dtype={"cod_ts": str, "cod_sig": str}),
+            pd.read_excel(
+                dir_diccionario_codigos, dtype={"cod_ts": str, "cod_sig": str}
+            ),
             left_on=["Servicio"],
             right_on=["cod_sig"],
             how="left",
@@ -253,7 +277,7 @@ def transformar_lbs_un(archivo_lbs: str, diccionario_periodos: str, dir_dicciona
     df_conteo = (
         df.value_counts(["Servicio", "Sentido", "Fecha", "Periodo", "Tipo Día"])
         .reset_index()
-        .rename(columns={'count': "SumaExpediciones"})
+        .rename(columns={"count": "SumaExpediciones"})
     )
     df["SumaDistancia"] = df["SumaDistancia"] / 1000
     df["SumaTiempo"] = df["SumaTiempo"].dt.total_seconds() / (60 * 60)
@@ -266,7 +290,6 @@ def transformar_lbs_un(archivo_lbs: str, diccionario_periodos: str, dir_dicciona
 
     df.drop(columns=["Distancia (m)", "Tiempo (hh:mm:ss)"], inplace=True)
     df = df.drop_duplicates()
-
 
     df_dic = pd.read_excel(diccionario_periodos, dtype={"Hora inicio": str})
     df = df.merge(
@@ -290,11 +313,13 @@ def transformar_lbs_un(archivo_lbs: str, diccionario_periodos: str, dir_dicciona
         + df["Fecha"].apply(lambda x: str(x))
     )
 
-    df = df.groupby([ 'SSPD', 'Servicio', 'Sentido', 'Fecha', 'Numero de Periodo'], as_index=False).agg(
-        SumaExpediciones=('SumaExpediciones', 'sum'),
-        PromVelocidad=('PromVelocidad', 'mean'),
-        SumaDistancia=('SumaDistancia', 'sum'),
-        SumaTiempo=('SumaTiempo', 'sum'),
+    df = df.groupby(
+        ["SSPD", "Servicio", "Sentido", "Fecha", "Numero de Periodo"], as_index=False
+    ).agg(
+        SumaExpediciones=("SumaExpediciones", "sum"),
+        PromVelocidad=("PromVelocidad", "mean"),
+        SumaDistancia=("SumaDistancia", "sum"),
+        SumaTiempo=("SumaTiempo", "sum"),
     )
 
     return df[
