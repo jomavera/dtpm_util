@@ -106,7 +106,7 @@ def transformar_anexo_3(
                 ]
             ]
             .groupby(
-                ["POSSPD", "PO", "Servicio", "Sentido", "Periodo", "Día"],
+                ["POSSPD", "PO", "Servicio", "Sentido", "Correlativo Periodo", "Día"],
                 as_index=False,
             )
             .agg({"SumaExpediciones": "sum", "PromVelocidad": "mean"})
@@ -193,7 +193,7 @@ def transformar_lbs(archivo_lbs: str, diccionario: str):
     )
 
     df = df.groupby(
-        ["SSPD", "Servicio", "Sentido", "Periodo", "Fecha", "Numero de Periodo"],
+        ["SSPD", "Servicio", "Sentido","Fecha", "Numero de Periodo"],
         as_index=False,
     ).agg(
         SumaExpediciones=("SumaExpediciones", "sum"),
@@ -207,7 +207,6 @@ def transformar_lbs(archivo_lbs: str, diccionario: str):
             "SSPD",
             "Servicio",
             "Sentido",
-            "Periodo",
             "Fecha",
             "SumaExpediciones",
             "PromVelocidad",
