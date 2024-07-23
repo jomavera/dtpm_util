@@ -297,6 +297,7 @@ def transformar_lbs_un(
         right_on=["Hora inicio", "Tipo Día"],
         how="left",
     )
+    df = df.drop_duplicates()
 
     df["Fecha"] = df["Fecha"].apply(lambda x: a_datetime(x))
     df["Fecha"] = pd.to_datetime(df["Fecha"], format="%d/%m/%Y")
